@@ -192,7 +192,7 @@ int kernel_payload(struct thread *td, struct kernel_payload_args* args)
   *(uint32_t *)(kernel_base + 0x4D70F7) = 0;
   *(uint32_t *)(kernel_base + 0x4D7F81) = 0;
 
-   flatz disable RSA signature check for PFS
+  // flatz disable RSA signature check for PFS
   *(uint32_t *)(kernel_base + 0x69F4E0) = 0x90C3C031;
 
   // flatz enable debug RIFs
@@ -200,6 +200,9 @@ int kernel_payload(struct thread *td, struct kernel_payload_args* args)
 
   //fw 5+  4.55 offset
   *(uint32_t *)(kernel_base + 0x144B600) = 0x5050001;
+  
+  //uart
+  *(char *)(kernel_base + 0x1997BC8) = 0;
 
   // Restore write protection
   writeCr0(cr0);
