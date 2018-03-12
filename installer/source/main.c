@@ -198,11 +198,21 @@ int kernel_payload(struct thread *td, struct kernel_payload_args* args)
   // flatz enable debug RIFs
   *(uint64_t *)(kernel_base + 0x62D30D) = 0x3D38EB00000001B8;
 
+  //Disable ptrace check
+  *(uint32_t*)&kernel_ptr[0x17D2EE] = 0x90909090;
+
+  // Disable process aslr
+  *(uint16_t*)&kernel_ptr[0x17D2F2] = 0x9090; 
+
   //fw 5+  4.55 offset
   *(uint32_t *)(kernel_base + 0x144B600) = 0x5050001;
-  
+
   //uart
   *(char *)(kernel_base + 0x1997BC8) = 0;
+
+  // verbose panic patch
+  *(uint32_t*)&kernel_ptr[0x3DBDC7] = 0x90909090;
+  *(char*)&kernel_ptr[0x3DBDCB] = 0x90;
 
   // Restore write protection
   writeCr0(cr0);
