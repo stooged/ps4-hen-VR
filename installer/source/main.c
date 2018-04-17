@@ -204,8 +204,8 @@ int kernel_payload(struct thread *td, struct kernel_payload_args* args)
   // Disable process aslr
   *(uint16_t*)&kernel_ptr[0x17D2F2] = 0x9090; 
 
-  //fw 5+  4.55 offset
-  *(uint32_t *)(kernel_base + 0x144B600) = 0x5050001;
+  //fw 6+  4.55 offset
+  *(uint32_t *)(kernel_base + 0x144B600) = 0x6050001;
 
   //uart
   *(char *)(kernel_base + 0x1997BC8) = 0;
